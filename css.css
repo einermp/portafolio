@@ -182,3 +182,19 @@ body.dark .items-active {
 }
 
 /*About*/
+
+/*technology*/
+.technology>div {
+    width: 100%;
+}
+
+.technology-img {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+.technology-img>img{
+    width: 150px;
+    max-height: 110px;
+}
