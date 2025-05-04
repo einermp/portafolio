@@ -1,0 +1,100 @@
+:root {
+    --light-0: #f8f9fa;
+    --light-1: #c72c2c;
+    --dark-0: #35383b;
+    --dark-1: #f8f9fa;
+}
+
+body {
+    background: var(--light-0);
+    display: grid;
+    height: 100vh;
+    margin: 0;
+    place-items: center;
+    transition: background 0.3s ease;
+}
+
+body.dark {
+    background: var(--dark-0);
+    color: var(--light-0);
+}
+body.dark .nav-option>div:nth-child(n+2):hover {
+    border-bottom: solid 2px var(--dark-1);
+}
+
+/*Togle buttons*/
+.toggle{
+    margin-top: 9px;
+}
+
+.toggle>input {
+    position: absolute;
+}
+
+.toggle>label {
+    background: var(--dark-0);
+    display: inline-block;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 20px;
+    position: relative;
+    width: 48px;
+}
+
+.toggle label .sun-moon {
+    background: var(--light-0);
+    border-radius: 50%;
+    height: 20px;
+    margin: 0 4px 0 4px;
+    transition: transform 0.3s ease;
+    width: 20px;
+}
+#toggle-button:checked+label {
+    background: var(--light-0);
+}
+
+#toggle-button:checked+label .sun-moon {
+    background: var(--dark-0);
+    transform: translateX(20px);
+}
+
+/*Nav*/
+.nav {
+    width: 80%;
+    display: flex;
+    margin: 50px auto 50px auto;
+}
+
+.nav-option {
+    width: 75%;
+    display: flex;
+}
+
+.nav-option>div:nth-child(n+2) {
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+}
+
+.nav-option>div:nth-child(n+2):hover {
+    border-bottom: solid 2px var(--light-1);
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto 50px auto;
+}
+
+.container-description {
+    width: 100%;
+    display: flex;
+    text-align: justify;
+}
+
+.user-img {
+    width: 50%;
+    text-align: center;
+}
+
+.user-img>img {
+    width: 200px;
+}
