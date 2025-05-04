@@ -1,10 +1,14 @@
 :root {
     --light-0: #f8f9fa;
     --light-1: #c72c2c;
+    --light-2: #d38833;
+    --light-3: #b87d7d;
     --dark-0: #35383b;
     --dark-1: #f8f9fa;
+    --dark-3: #838485;
 }
 
+/*body*/
 body {
     background: var(--light-0);
     display: grid;
@@ -18,13 +22,77 @@ body.dark {
     background: var(--dark-0);
     color: var(--light-0);
 }
-body.dark .nav-option>div:nth-child(n+2):hover {
+
+#mainDiv {
+    width: 85%;
+}
+
+/*Nav*/
+.nav {
+    width: 85%;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    background-color: var(--light-0);
+    border-bottom: solid 1px #bbbbbb;
+}
+
+body.dark .nav {
+    background-color: var(--dark-0);
+}
+
+.nav-option {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-option>a {
+    text-decoration: none;
+    color: var(--dark-0);
+}
+
+body.dark .nav-option>a {
+    color: var(--dark-1);
+}
+
+.portfolio {
+    margin-top: -20px;
+}
+
+.portfolio>h1>span:nth-child(2) {
+    font-size: 20px;
+    color: var(--light-2);
+}
+
+.items {
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.items:hover {
+    border-bottom: solid 2px var(--light-3);
+}
+
+body.dark .items:hover {
+    border-bottom: solid 2px var(--dark-3);
+}
+
+.items-active {
+    border-bottom: solid 2px var(--light-1);
+}
+
+body.dark .items-active {
     border-bottom: solid 2px var(--dark-1);
 }
 
 /*Togle buttons*/
-.toggle{
+.toggle {
     margin-top: 9px;
+    margin-left: 50px;
 }
 
 .toggle>input {
@@ -49,6 +117,7 @@ body.dark .nav-option>div:nth-child(n+2):hover {
     transition: transform 0.3s ease;
     width: 20px;
 }
+
 #toggle-button:checked+label {
     background: var(--light-0);
 }
@@ -58,43 +127,58 @@ body.dark .nav-option>div:nth-child(n+2):hover {
     transform: translateX(20px);
 }
 
-/*Nav*/
-.nav {
-    width: 80%;
-    display: flex;
-    margin: 50px auto 50px auto;
+/*Container*/
+.container {
+    width: 100%;
+    margin: 0px auto 0px auto;
 }
 
-.nav-option {
-    width: 75%;
+/*Description*/
+.description,
+.about,
+.technology,
+.proyects,
+.contact-me {
+    width: 100%;
+    height: 100vh;
     display: flex;
+    justify-content: space-around;
+    text-align: justify;
+    flex-wrap: wrap;
+    align-content: space-around;
+    border-bottom: solid 1px #a1a1a1;
 }
 
-.nav-option>div:nth-child(n+2) {
-    padding: 10px 20px 10px 20px;
+.description-user>h1 {
+    margin: 0;
+    padding: 0;
+}
+
+.description-user>a>img {
+    width: 30px;
+    margin: 10px;
+}
+
+.curriculum {
+    margin-top: 30px;
+}
+
+.curriculum>button {
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: var(--light-2);
     cursor: pointer;
 }
 
-.nav-option>div:nth-child(n+2):hover {
-    border-bottom: solid 2px var(--light-1);
+.description-user>a>img:hover,
+.container-curriculum>button:hover {
+    opacity: 0.5;
 }
 
-.container {
-    width: 80%;
-    margin: 50px auto 50px auto;
+.description-img>img {
+    width: 250px;
+    border-radius: 50%;
 }
 
-.container-description {
-    width: 100%;
-    display: flex;
-    text-align: justify;
-}
-
-.user-img {
-    width: 50%;
-    text-align: center;
-}
-
-.user-img>img {
-    width: 200px;
-}
+/*About*/

@@ -8,48 +8,90 @@
 </head>
 
 <body>
-    <div id="minDiv">
+    <div id="mainDiv">
         <div id="nav" class="nav">
+            <div>
+                <div class="portfolio">
+                    <h1><span>Port</span><span>folio</span></h1>
+                </div>
+            </diV>
             <div class="nav-option">
+                <a href="#description">
+                    <div class="items items-active">HOME</div>
+                </a>
+                <a href="#about">
+                    <div class="items">ABOUT</div>
+                </a>
+                <a href="#technology">
+                    <div class="items">TECHNOLOGY</div>
+                </a>
+                <a href="#proyects">
+                    <div class="items">PROYECTS</div>
+                </a>
+                <a href="#contact_me">
+                    <div class="items">CONTACT ME</div>
+                </a>
+            </div>
+            <div>
                 <div class="toggle">
                     <input id="toggle-button" type="checkbox">
                     <label for="toggle-button">
                         <div class="sun-moon"></div>
                     </label>
                 </div>
-                <div>Home</div>
-                <div>About</div>
-                <div>Skills</div>
-                <div>Proyects</div>
-            </div>
-            <div>
-                <button>Contact</button>
             </div>
         </div>
-
         <div class="container">
-            <div class="container-description">
-                <div>
-                    <p>Hola, soy Einer</p>
-                    <p>Full stack developer</p>
-                    <p>Tengo 30 años y me intereso la programación desde que tenía 20. comence con los videojuegos
-                        recreando
-                        un bird sencillo. luego continúe en el desarrollo aprendiendo las tecnologias necesarias y desde
-                        entonces he creado varios proyectos.</p>
+            <section id="description" class="description">
+                <div class="description-user">
+                    <h2>Hola, este es mi portafolio</h2>
+                    <h1>Soy Einer Méndez</h1>
+                    <h2>Full-Stack developer</h2>
+                    <a href="https://github.com/einermp" target="_blank">
+                        <img src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" alt="git">
+                    </a>
+                    <a href="https://www.linkedin.com/" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png"
+                            alt="linkeding">
+                    </a>
+                    <div class="curriculum">
+                        <button>DOWNLOAD CV</button>
+                    </div>
                 </div>
-                <div class="user-img">
+                <div class="description-img">
                     <img src="https://static.vecteezy.com/system/resources/previews/007/571/310/non_2x/programmer-line-icon-vector.jpg"
                         alt="user">
                 </div>
-            </div>
-            <div>
-                <img src="" alt="color">
-                <img src="" alt="git">
-                <img src="" alt="linkeding">
-                <img src="" alt="facrbook">
-            </div>
+            </section>
+            <section id="about" class="about">
+                <div>
+                    <h1>About</h1>
+                    <p>
+                        Tengo 30 años y me intereso la programación desde que tenía 20. comence con los videojuegos
+                        recreando un bird sencillo. luego continúe en el desarrollo aprendiendo las tecnologias
+                        necesarias y
+                        desde
+                        entonces he creado varios proyectos.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis explicabo officiis incidunt
+                        beatae! Eveniet, numquam aspernatur! Fugit porro quam ad doloribus voluptate id veritatis
+                        repudiandae! Minima ad odio dolor dolorem.
+                    </p>
+                </div>
+            </section>
+            <section id="technology" class="technology">
+                <h1>Techonology</h1>
+            </section>
+            <section id="proyects" class="proyects">
+                <h1>Proyects</h1>
+            </section>
+            <section id="contact_me" class="contact-me">
+                <h1>Contact Me</h1>
+            </section>
         </div>
     </div>
 </body>
 <script src="./index.js"></script>
+
 </html>
