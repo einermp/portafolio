@@ -10,7 +10,7 @@ var mainVue = new Vue({
     methods: function () {
     }
 });
-
+//Modo dark
 const toggleButton = document.getElementById('toggle-button');
 toggleButton.addEventListener('change', () => {
     document.body.classList.toggle('dark');
@@ -22,6 +22,7 @@ if (localStorage.getItem('dark-mode') === 'dark') {
     toggleButton.checked = true;
 }
 
+//Seleccionar menú de acuerdo a la sección en pantalla
 let items = document.querySelectorAll(".items");
 const secciones = document.querySelectorAll('section');
 
@@ -31,7 +32,7 @@ const observer = new IntersectionObserver((entries) => {
             const id = entry.target.id;
             items.forEach((item) => {
                 item.classList.remove("items-active");
-                if(item.parentNode.href.includes(id)){
+                if (item.parentNode.href.includes(id)) {
                     item.classList.add("items-active");
                 }
             });
@@ -50,4 +51,29 @@ items.forEach((item) => {
             item.classList.add("items-active");
         });
     });
+});
+
+//Subir al inicio de las secciones
+
+const btnSubir = document.getElementById("btn_scroll_top");
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 100) {
+        btnSubir.classList.add("scroll-top-show")
+    }
+    else {
+        btnSubir.classList.remove("scroll-top-show")
+    }
+});
+
+btnSubir.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
+//Descargar CV
+const btnDescargarCv = document.getElementById("download_cv");
+btnDescargarCv.addEventListener("click", () => {
+    document.getElementById("download_cv_a").click();
 });
