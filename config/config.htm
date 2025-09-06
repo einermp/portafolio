@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Portafolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link href="../css_lib/beercss/beer.min.css" rel="stylesheet">
+    <script type="module" src="../css_lib/beercss/beer.min.js"></script>
+    <script type="module" src="../css_lib/beercss/material-dynamic-colors.min.js"></script>
+</head>
+
+<body>
+    <div id="mainDiv">
+        <h5>Actualización de Datos</h5>
+        <div v-bind:class="'field label border' + (infoPortafolio.nombre == '' ? ' invalid' : '')">
+            <input type="text" v-model="infoPortafolio.nombre">
+            <label>Nombre Completo</label>
+        </div>
+        <div v-bind:class="'field label border' + (infoPortafolio.celular == '' ? ' invalid' : '')">
+            <input type="text" v-model="infoPortafolio.celular">
+            <label>Celular</label>
+        </div>
+        <div v-bind:class="'field label border' + (infoPortafolio.email == '' ? ' invalid' : '')">
+            <input type="text" v-model="infoPortafolio.email">
+            <label>Email</label>
+        </div>
+        <div v-bind:class="'field label border' + (infoPortafolio.linkCurriculum == '' ? ' invalid' : '')">
+            <input type="text" v-model="infoPortafolio.linkCurriculum">
+            <label>Link Curriculum</label>
+        </div>
+        <button @click="updaInfPortafolio()">Actualizar</button>
+    </div>
+    <div>
+        <div class="snackbar" id="alertSuccess" onclick="hideSuccess()"></div>
+        <div class="snackbar error" id="alertError" onclick="hideError()"></div>
+    </div>
+</body>
+<script type="module">
+    import { createApp } from "../js_lib/vue.esm-browser.js";
+    import App from "./config.js";
+    createApp(App).mount("#mainDiv");
+</script>
+
+</html>

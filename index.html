@@ -77,7 +77,7 @@
             <div class="s12 m12 l3" id="panelDesc">
                 <article>
                     <div class="padding">
-                        <img class="responsive"
+                        <img class="responsive circle"
                             src="https://static.vecteezy.com/system/resources/previews/007/571/310/non_2x/programmer-line-icon-vector.jpg"
                             alt="user">
                     </div>
@@ -102,8 +102,8 @@
                                 alt="linkeding">
                         </a>
                         <div>
-                            <button id="download_cv">DOWNLOAD CV</button>
-                            <a id="download_cv_a" href="./data/MatriculaCUN.pdf" download="Curriculum.pdf"></a>
+                            <button @click="downloadCurriculum()">DOWNLOAD CV</button>
+                            <a id="download_cv_a" v-bind:href="infoPortafolio.linkCurriculum" target="_blank"></a>
                         </div>
                     </div>
                 </article>
@@ -237,7 +237,7 @@
                             <div class="grid">
                                 <div class="s2 m2 l4"></div>
                                 <div class="s8 m8 l4">
-                                    <button class="small-round responsive" @click="agregarUsuario()">Enviar</button>
+                                    <button class="small-round responsive" @click="insContacto()">Enviar</button>
                                 </div>
                                 <div class="s2 m2 l4"></div>
                             </div>

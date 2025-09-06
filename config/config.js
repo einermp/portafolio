@@ -1,17 +1,10 @@
-import { db, collection, addDoc, getDocs, query, where } from "./js/firebase.js";
-const dbName = "contactsPortafolio";
+import { db, collection, addDoc, getDocs, query, where, doc, updateDoc } from "../js/firebase.js";
+const dbName = "portafolio";
 export default {
     data() {
         return {
             titulo: "Portafolio",
-            infoPortafolio: [],
-            paramContact: {
-                name: "",
-                celular: "",
-                email: "",
-                isActive: "1",
-                createdOn: this.getdate()
-            }
+            infoPortafolio: []
         };
     },
     async mounted() {
@@ -24,19 +17,6 @@ export default {
             const mm = String(hoy.getMonth() + 1).padStart(2, "0"); // Mes empieza en 0
             const dd = String(hoy.getDate()).padStart(2, "0");
             return `${yyyy}-${mm}-${dd}`;
-        },
-        showSection(id, titulo) {
-            this.titulo = titulo;
-
-            // Buscar el elemento por id
-            const el = document.getElementById(id);
-            if (el) {
-                //Desplazamiento suave
-                el.scrollIntoView({
-                    behavior: "smooth", // "auto" para instantáneo
-                    block: "start" // "start", "center", "end", "nearest"
-                });
-            }
         },
         scrollTop() {
             window.scrollTo({
@@ -82,23 +62,33 @@ export default {
                 showError("Error al cargar información del portafolio.");
             }
         },
-        async insContacto() {
-            if (!this.validJSON(this.paramContact)) {
-                showError("Error - Debe completar todos los campos.");
-                return;
-            }
+        async updaInfPortafolio() {
             try {
-                const data = await addDoc(collection(db, dbName), this.paramContact);
-                showSuccess("Datos guardados corectamente.")
-                this.clearJSON(this.paramContact, ["isActive", "createdOn"]);
-            }
-            catch (err) {
+                if (!this.validJSON(this.infoPortafolio)) {
+                    showError("Error - Debe completar todos los campos.");
+                    return;
+                }
+
+                //Referencia al documento
+                const usuarioRef = doc(db, dbName, this.infoPortafolio.id);
+
+                //Actualizar campos específicos
+                await updateDoc(usuarioRef, {
+                    nombre: this.infoPortafolio.nombre,
+                    email: this.infoPortafolio.email,
+                    celular: this.infoPortafolio.celular,
+                    linkCurriculum: this.infoPortafolio.linkCurriculum
+                });
+
+                showSuccess("Datos actualizados correctamente.");
+            } catch (err) {
                 showError(err);
             }
         },
-        downloadCurriculum() {
-            document.getElementById("download_cv_a").click();
-        }
+        // async cargarUsuarios() {
+        //     const querySnapshot = await getDocs(collection(db, dbName));
+        //     this.usuarios = querySnapshot.docs.map(doc => doc.data());
+        // }
     }
 };
 function showSuccess(msg) {

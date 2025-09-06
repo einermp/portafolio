@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,7 +16,7 @@ const appFirebase = initializeApp(firebaseConfig);
 // Exportar Firestore
 const db = getFirestore(appFirebase);
 
-export { db, collection, addDoc, getDocs, query, where };
+export { db, collection, addDoc, getDocs, query, where, doc, updateDoc };
 /*
 async function add() {
     var ref = collection(db, "portafolio");
