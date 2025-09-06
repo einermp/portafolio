@@ -8,6 +8,7 @@
     <script type="module" src="./css_lib/beercss/beer.min.js"></script>
     <script type="module" src="./css_lib/beercss/material-dynamic-colors.min.js"></script>
 </head>
+
 <body>
     <div id="mainDiv">
         <header class="fixed transparent center-align min">
@@ -81,21 +82,21 @@
                             alt="user">
                     </div>
                     <div class="margin">
-                        <h3>Einer Méndez</h3>
+                        <h3>{{infoPortafolio.nombre}}</h3>
                         <div class="chip">Full-Stack developer</div>
                     </div>
                     <hr>
                     <div class="margin">
-                        <div class="chip">Email: einer_medez@hotmail.com</div>
+                        <div class="chip">Email: {{infoPortafolio.email}}</div>
                         <br>
-                        <div class="chip">Celular: 311 844 2406</div>
+                        <div class="chip">Celular: {{infoPortafolio.celular}}</div>
                     </div>
                     <div class="margin">
-                        <a href="https://github.com/einermp" target="_blank">
+                        <a v-bind:href="infoPortafolio.git" target="_blank">
                             <img class="small"
                                 src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" alt="git">
                         </a>
-                        <a href="https://www.linkedin.com/" target="_blank">
+                        <a v-bind:href="infoPortafolio.linkedin" target="_blank">
                             <img class="small"
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png"
                                 alt="linkeding">
@@ -136,22 +137,7 @@
                             </div>
                         </div>
                         <div id="div_about" class="page padding active">
-                            <p>
-                                Tengo 30 años y me intereso la programación desde que tenía 20. comence con los
-                                videojuegos
-                                recreando un bird sencillo. luego continúe en el desarrollo aprendiendo las
-                                tecnologias
-                                necesarias y
-                                desde
-                                entonces he creado varios proyectos.
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis explicabo
-                                officiis incidunt
-                                beatae! Eveniet, numquam aspernatur! Fugit porro quam ad doloribus voluptate id
-                                veritatis
-                                repudiandae! Minima ad odio dolor dolorem.
-                            </p>
+                            {{infoPortafolio.descripcion}}
                         </div>
                         <div id="div_technology" class="page padding">
                             <div class="grid">
@@ -232,24 +218,26 @@
                         </div>
                         <div id="div_contact" class="page padding">
                             <div class="grid">
-                                <div class="s12 m12 l6 field label border">
-                                    <input id="name" type="text" />
+                                <div
+                                    v-bind:class="'s12 m12 l6 field label border' + (paramContact.name == '' ? ' invalid' : '')">
+                                    <input v-model="paramContact.name" type="text" />
                                     <label>Nombre</label>
                                 </div>
-                                <div class="s12 m12 l6 field label border">
-                                    <input id="cel" type="text" />
+                                <div
+                                    v-bind:class="'s12 m12 l6 field label border' + (paramContact.cel == '' ? ' invalid' : '')">
+                                    <input v-model="paramContact.cel" type="text" />
                                     <label>Celular</label>
                                 </div>
-                                <div class="s12 m12 l6 field label border">
-                                    <input id="email" type="text" />
+                                <div
+                                    v-bind:class="'s12 m12 l6 field label border' + (paramContact.email == '' ? ' invalid' : '')">
+                                    <input v-model="paramContact.email" type="text" />
                                     <label>Email</label>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="s2 m2 l4"></div>
                                 <div class="s8 m8 l4">
-                                    <button class="small-round responsive" id="btn_enviar"
-                                        onclick="return false;">Enviar</button>
+                                    <button class="small-round responsive" @click="agregarUsuario()">Enviar</button>
                                 </div>
                                 <div class="s2 m2 l4"></div>
                             </div>
@@ -286,11 +274,15 @@
             </div>
         </div>
     </div>
+    <div>
+        <div class="snackbar" id="alertSuccess" onclick="hideSuccess()"></div>
+        <div class="snackbar error" id="alertError" onclick="hideError()"></div>
+    </div>
 </body>
 <script type="module">
     import { createApp } from "./js_lib/vue.esm-browser.js";
     import App from "./index.js";
     createApp(App).mount("#mainDiv");
 </script>
-<script type="module" src="./js/firebase.js"></script>
+
 </html>

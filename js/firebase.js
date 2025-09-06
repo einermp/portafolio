@@ -1,7 +1,5 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -13,22 +11,13 @@ const firebaseConfig = {
     appId: "1:228081259186:web:4c887250d7f8f55a84afab"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Inicializar Firebase
+const appFirebase = initializeApp(firebaseConfig);
+// Exportar Firestore
+const db = getFirestore(appFirebase);
 
-import {
-    getFirestore,
-    doc,
-    getDoc,
-    collection,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    deleteField
-} from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
-
-const db = getFirestore();
-
+export { db, collection, addDoc, getDocs, query, where };
+/*
 async function add() {
     var ref = collection(db, "portafolio");
     const result = await addDoc(ref, {
@@ -45,3 +34,4 @@ async function add() {
 }
 
 document.getElementById("btn_enviar").addEventListener("click", add);
+*/
