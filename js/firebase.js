@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, query, where, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+//import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,23 +16,13 @@ const firebaseConfig = {
 const appFirebase = initializeApp(firebaseConfig);
 // Exportar Firestore
 const db = getFirestore(appFirebase);
-
-export { db, collection, addDoc, getDocs, query, where, doc, updateDoc };
 /*
-async function add() {
-    var ref = collection(db, "portafolio");
-    const result = await addDoc(ref, {
-        Nombre: document.getElementById("name").value,
-        Telefono: document.getElementById("cel").value,
-        Email: document.getElementById("email").value
-    })
-        .then(() => {
-            alert("ok");
-        })
-        .catch((e) => {
-            alert(e);
-        });
-}
+const auth = getAuth(appFirebase);
 
-document.getElementById("btn_enviar").addEventListener("click", add);
+// Hacer login anónimo al cargar la app
+signInAnonymously(auth).catch(err => {
+  console.error("Error al autenticar anónimamente:", err);
+});
 */
+
+export { db, /*auth,*/ collection, addDoc, getDocs, query, where, doc, updateDoc };

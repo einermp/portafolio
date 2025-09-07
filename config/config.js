@@ -4,7 +4,9 @@ export default {
     data() {
         return {
             titulo: "Portafolio",
-            infoPortafolio: []
+            infoPortafolio: [],
+            linkCurriculum: "",
+            linkImg: ""
         };
     },
     async mounted() {
@@ -58,6 +60,8 @@ export default {
                     id: doc.id,
                     ...doc.data()
                 }))[0];
+                this.linkCurriculum = this.infoPortafolio.linkCurriculum;
+                this.linkImg = this.infoPortafolio.linkImg;
             } catch (e) {
                 showError("Error al cargar información del portafolio.");
             }
@@ -68,16 +72,27 @@ export default {
                     showError("Error - Debe completar todos los campos.");
                     return;
                 }
-
-                //Referencia al documento
                 const usuarioRef = doc(db, dbName, this.infoPortafolio.id);
+                //Referencia al documento   
+                let linkCurriculum = this.infoPortafolio.linkCurriculum;
+                if (this.linkCurriculum != this.infoPortafolio.linkCurriculum) {
+                    const idCurriculum = this.getIdArchivo(this.infoPortafolio.linkCurriculum);
+                    linkCurriculum = "https://drive.google.com/uc?export=download&id=" + idCurriculum;
+                }
+                let linkImg = this.infoPortafolio.linkImg;
+                if (this.linkImg != this.infoPortafolio.linkImg) {
+                    const idImg = this.getIdArchivo(this.infoPortafolio.linkImg);
+                    linkImg = "https://lh3.googleusercontent.com/d/" + idImg;
+                }
 
                 //Actualizar campos específicos
                 await updateDoc(usuarioRef, {
                     nombre: this.infoPortafolio.nombre,
                     email: this.infoPortafolio.email,
                     celular: this.infoPortafolio.celular,
-                    linkCurriculum: this.infoPortafolio.linkCurriculum
+                    descripcion: this.infoPortafolio.descripcion,
+                    linkCurriculum: linkCurriculum,
+                    linkImg: linkImg
                 });
 
                 showSuccess("Datos actualizados correctamente.");
@@ -85,6 +100,11 @@ export default {
                 showError(err);
             }
         },
+        getIdArchivo(link) {
+            const inicio = link.indexOf("file/d/") + 7;
+            const fin = link.indexOf("/view?");
+            return link.substring(inicio, fin);
+        }
         // async cargarUsuarios() {
         //     const querySnapshot = await getDocs(collection(db, dbName));
         //     this.usuarios = querySnapshot.docs.map(doc => doc.data());

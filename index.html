@@ -7,17 +7,19 @@
     <link href="./css_lib/beercss/beer.min.css" rel="stylesheet">
     <script type="module" src="./css_lib/beercss/beer.min.js"></script>
     <script type="module" src="./css_lib/beercss/material-dynamic-colors.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
 </head>
 
 <body>
     <div id="mainDiv">
-        <header class="fixed transparent center-align min">
+        <header class="transparent center-align min" style="position: fixed;right: 0; z-index: 200;">
             <nav class="toolbar primary elevate min">
                 <button class="transparent circle" data-ui="#themes3">
                     <i>palette</i>
                 </button>
-                <button class="transparent circle">
-                    <i class="page top active">dark_mode</i>
+                <button class="transparent circle" @click="changeMode()">
+                    <i class="page top active">{{modePage=='dark' ? 'light_mode' : 'dark_mode'}}</i>
                 </button>
             </nav>
         </header>
@@ -31,67 +33,32 @@
                         </div><button class="circle transparent" data-ui="#themes3"><i>close</i></button>
                     </nav>
                     <nav class="wrap">
-                        <button class="chip circle small"><i>dark_mode</i></button>
                         <button class="chip circle"><i>palette</i><input type="color"></button>
-                        <button class="circle small red"></button>
-                        <button class="circle small pink"></button>
-                        <button class="circle small purple"></button>
-                        <button class="circle small deep-purple"></button>
-                        <button class="circle small indigo"></button>
-                        <button class="circle small blue"></button>
-                        <button class="circle small light-blue"></button>
-                        <button class="circle small cyan"></button>
-                        <button class="circle small teal"></button>
-                        <button class="circle small green"></button>
-                        <button class="circle small light-green"></button>
-                        <button class="circle small lime"></button>
-                        <button class="circle small yellow"></button>
-                        <button class="circle small amber"></button>
-                        <button class="circle small orange"></button>
-                        <button class="circle small deep-orange"></button>
-                        <button class="circle small brown"></button>
-                        <button class="circle small grey"></button>
-                        <button class="circle small blue-grey"></button>
-                        <button class="circle small black"></button>
-                        <button class="circle small white"></button>
+                        <button v-for="item in colors" :class="'circle small ' + item"
+                            @click="changeTeme($event)"></button>
                     </nav>
                 </header>
-            </dialog>
-            <div class="overlay"></div>
-            <dialog class="right" id="themes3-code">
-                <nav>
-                    <h5>Themes</h5><a class="button border m l"
-                        href="https://github.com/beercss/beercss/blob/main/docs/SETTINGS.md"
-                        target="_blank">Documentation</a>
-                    <div class="max"></div><button class="transparent circle"><i>close</i></button>
-                </nav>
-                <nav><label class="radio"><input type="radio" value="light"><span>Light</span></label><label
-                        class="radio"><input type="radio" value="dark"><span>Dark</span></label></nav>
-                <div class="space"></div>
-                <article class="border">
-                    <pre class="scroll"><code></code></pre>
-                </article>
             </dialog>
         </div>
         <div class="grid">
             <div class="s12 m12 l3" id="panelDesc">
                 <article>
                     <div class="padding">
-                        <img class="responsive circle"
-                            src="https://static.vecteezy.com/system/resources/previews/007/571/310/non_2x/programmer-line-icon-vector.jpg"
-                            alt="user">
+                        <img class="responsive circle" alt="user" v-bind:src="infoPortafolio.linkImg">
                     </div>
-                    <div class="margin">
+                    <div class="margin center-align">
                         <h3>{{infoPortafolio.nombre}}</h3>
                         <div class="chip">Full-Stack developer</div>
                     </div>
                     <hr>
-                    <div class="margin">
-                        <div class="chip">Email: {{infoPortafolio.email}}</div>
+                    <div class="margin center-align">
+                        <a class="chip responsive-text" v-bind:href="'https://mailto:'+ infoPortafolio.email"
+                            target="_blank"><i>email</i>{{infoPortafolio.email}}</a>
                         <br>
-                        <div class="chip">Celular: {{infoPortafolio.celular}}</div>
+                        <a class="chip responsive-text" v-bind:href="'https://tel:'+ infoPortafolio.celular"
+                            target="_blank"><i>phone_enabled</i>{{infoPortafolio.celular}}</a>
                     </div>
-                    <div class="margin">
+                    <div class="margin center-align">
                         <a v-bind:href="infoPortafolio.git" target="_blank">
                             <img class="small"
                                 src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" alt="git">
@@ -102,8 +69,10 @@
                                 alt="linkeding">
                         </a>
                         <div>
-                            <button @click="downloadCurriculum()">DOWNLOAD CV</button>
-                            <a id="download_cv_a" v-bind:href="infoPortafolio.linkCurriculum" target="_blank"></a>
+                            <br>
+                            <button @click="downloadCurriculum()">CV <i>download</i></button>
+                            <a id="download_cv_a" v-bind:href="infoPortafolio.linkCurriculum"
+                                download="Hoja_Vida_Einer_Mendez"></a>
                         </div>
                     </div>
                 </article>
@@ -224,8 +193,8 @@
                                     <label>Nombre</label>
                                 </div>
                                 <div
-                                    v-bind:class="'s12 m12 l6 field label border' + (paramContact.cel == '' ? ' invalid' : '')">
-                                    <input v-model="paramContact.cel" type="text" />
+                                    v-bind:class="'s12 m12 l6 field label border' + (paramContact.celular == '' ? ' invalid' : '')">
+                                    <input v-model="paramContact.celular" type="text" />
                                     <label>Celular</label>
                                 </div>
                                 <div
@@ -245,10 +214,13 @@
                     </article>
                 </main>
             </div>
-            <div class="fixed bottom center">
-                <!-- <img class="circle extra primary" title="Subir" id="btn_scroll_top" src="./ico/flecha-arriba.png"
-                    alt="" /> -->
-                <nav class="s bottom round" id="navigation-bar1">
+            <div class="l fixed bottom right">
+                <button class="circle extra primary margin" @click="scrollTop()">
+                    <i>arrow_warm_up</i>
+                </button>
+            </div>
+            <div class="s m fixed bottom center">
+                <nav class="bottom round" id="navigation-bar1">
                     <a @click="scrollTop()">
                         <i>home</i>
                         <span>Home</span>
@@ -265,7 +237,6 @@
                         <i>design_services</i>
                         <span>Proyects</span>
                     </a>
-
                     <a data-ui="#div_contact" @click="showSection('panelMain', 'Contact');">
                         <i>accessibility_new</i>
                         <span>Contact</span>
@@ -277,6 +248,9 @@
     <div>
         <div class="snackbar" id="alertSuccess" onclick="hideSuccess()"></div>
         <div class="snackbar error" id="alertError" onclick="hideError()"></div>
+        <div class="overlay" id="idProgress">
+            <div class="circle large"></div>
+        </div>
     </div>
 </body>
 <script type="module">

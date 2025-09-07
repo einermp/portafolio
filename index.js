@@ -1,8 +1,9 @@
-import { db, collection, addDoc, getDocs, query, where } from "./js/firebase.js";
+import { db, /*auth,*/ collection, addDoc, getDocs, query, where } from "./js/firebase.js";
 const dbName = "contactsPortafolio";
 export default {
     data() {
         return {
+            user: null,
             titulo: "Portafolio",
             infoPortafolio: [],
             paramContact: {
@@ -11,10 +12,49 @@ export default {
                 email: "",
                 isActive: "1",
                 createdOn: this.getdate()
-            }
+            },
+            themePage: "",
+            modePage: "light",
+            colors: [
+                "red",
+                "pink",
+                "purple",
+                "deep-purple",
+                "indigo",
+                "blue",
+                "light-blue",
+                "cyan",
+                "teal",
+                "green",
+                "light-green",
+                "lime",
+                "yellow",
+                "amber",
+                "orange",
+                "deep-orange",
+                "brown",
+                "grey",
+                "blue-grey",
+                "black",
+                "white"
+            ]
         };
     },
     async mounted() {
+        const modePage = localStorage.getItem("modePage");
+        this.modePage = modePage ? modePage : "light";
+        ui("mode", modePage);
+        const themePage = localStorage.getItem("themePage");
+        this.themePage = themePage ? themePage : "";
+        ui("theme", themePage);
+
+        /*onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.user = user;
+                console.log("Autenticado anónimo con UID:", user.uid);
+            }
+        });*/
+
         await this.getInfoPortafolio();
     },
     methods: {
@@ -24,6 +64,20 @@ export default {
             const mm = String(hoy.getMonth() + 1).padStart(2, "0"); // Mes empieza en 0
             const dd = String(hoy.getDate()).padStart(2, "0");
             return `${yyyy}-${mm}-${dd}`;
+        },
+        changeTeme(event) {
+            const btn = event.target; // el botón clicado
+            // Obtiene el background-color computado
+            const bgColor = window.getComputedStyle(btn).backgroundColor;
+            const colorRgb = rgbToHex(bgColor);
+            ui("theme", colorRgb);
+            this.themePage = colorRgb;
+            localStorage.setItem("themePage", colorRgb);
+        },
+        changeMode() {
+            this.modePage = this.modePage == "light" ? "dark" : "light";
+            ui("mode", this.modePage);
+            localStorage.setItem("modePage", this.modePage);
         },
         showSection(id, titulo) {
             this.titulo = titulo;
@@ -55,14 +109,15 @@ export default {
         },
         clearJSON(obj, ex) {
             // Recorre todas las propiedades del objeto
-            for (const key in obj) {
+            Object.keys(obj).forEach(key => {
                 if (!ex.includes(key)) {
-                    key = "";
+                    obj[key] = "";
                 }
-            }
+            });
             return true;
         },
         async getInfoPortafolio() {
+            showProgress();
             try {
                 //Referencia a la colección
                 const usuariosRef = collection(db, "portafolio");
@@ -81,8 +136,10 @@ export default {
             } catch (e) {
                 showError("Error al cargar información del portafolio.");
             }
+            hideProgress();
         },
         async insContacto() {
+            showProgress();
             if (!this.validJSON(this.paramContact)) {
                 showError("Error - Debe completar todos los campos.");
                 return;
@@ -95,12 +152,21 @@ export default {
             catch (err) {
                 showError(err);
             }
+            hideProgress();
         },
         downloadCurriculum() {
             document.getElementById("download_cv_a").click();
         }
     }
 };
+
+//Process
+function rgbToHex(rgb) {
+    const result = rgb.match(/\d+/g).map(x => parseInt(x, 10));
+    return "#" + result.map(x => x.toString(16).padStart(2, "0")).join("");
+}
+
+//Alerts
 function showSuccess(msg) {
     const el = document.getElementById("alertSuccess");
     el.innerText = msg;
@@ -124,4 +190,11 @@ function showError(msg) {
 }
 function hideError() {
     document.getElementById("alertError").className = "snackbar error";
+}
+
+function showProgress() {
+    document.getElementById("idProgress").className = "overlay active";
+}
+function hideProgress() {
+    document.getElementById("idProgress").className = "overlay";
 }

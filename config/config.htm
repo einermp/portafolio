@@ -28,6 +28,14 @@
             <input type="text" v-model="infoPortafolio.linkCurriculum">
             <label>Link Curriculum</label>
         </div>
+        <div v-bind:class="'field label border' + (infoPortafolio.linkImg == '' ? ' invalid' : '')">
+            <input type="text" v-model="infoPortafolio.linkImg">
+            <label>Link IMG</label>
+        </div>
+        <div v-bind:class="'field textarea label border' + (infoPortafolio.descripcion == '' ? ' invalid' : '')">
+            <textarea v-model="infoPortafolio.descripcion"></textarea>
+            <label>About</label>
+        </div>
         <button @click="updaInfPortafolio()">Actualizar</button>
     </div>
     <div>
