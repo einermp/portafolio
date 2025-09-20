@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div id="mainDiv">
+    <div id="mainDiv" style="display: none;">
         <header class="transparent center-align min" style="position: fixed;right: 0; z-index: 200;">
             <nav class="toolbar primary elevate min">
                 <button class="transparent circle" data-ui="#themes3">
@@ -43,22 +43,23 @@
         <div class="grid">
             <div class="s12 m12 l3" id="panelDesc">
                 <article>
-                    <div class="padding">
-                        <img class="responsive circle" alt="user" v-bind:src="infoPortafolio.linkImg">
+                    <div class="center-align padding">
+                        <img class="responsive circle small-width" alt="user" v-bind:src="infoPortafolio.linkImg">
                     </div>
-                    <div class="margin center-align">
-                        <h3>{{infoPortafolio.nombre}}</h3>
+                    <div class="center-align">
+                        <h4>{{infoPortafolio.nombre}}</h4>
                         <div class="chip">Full-Stack developer</div>
                     </div>
+                    <br>
                     <hr>
-                    <div class="margin center-align">
+                    <div class="padding center-align scroll">
                         <a class="chip responsive-text" v-bind:href="'https://mailto:'+ infoPortafolio.email"
                             target="_blank"><i>email</i>{{infoPortafolio.email}}</a>
                         <br>
                         <a class="chip responsive-text" v-bind:href="'https://tel:'+ infoPortafolio.celular"
                             target="_blank"><i>phone_enabled</i>{{infoPortafolio.celular}}</a>
                     </div>
-                    <div class="margin center-align">
+                    <div class="center-align">
                         <a v-bind:href="infoPortafolio.git" target="_blank">
                             <img class="small"
                                 src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" alt="git">
@@ -80,33 +81,36 @@
             <div class="s12 m12 l9" id="panelMain">
                 <main class="responsive">
                     <article>
-                        <div class="grid">
-                            <div class="s12 m12 l4">
-                                <h4>{{titulo}}</h4>
-                            </div>
-                            <div class="s12 m12 l8">
+                        <div class="grid padding">
+                            <div class="s12 m12 l12 scroll">
                                 <nav class="l tabbed">
                                     <a data-ui="#div_about" class="active" @click="titulo = 'About'">
                                         <i>info</i>
-                                        <span>ABOUT</span>
+                                        <span class="small-text">ABOUT</span>
+                                    </a>
+                                    <a data-ui="#div_certificate" @click="titulo = 'Certificates'">
+                                        <i>license</i>
+                                        <span class="small-text">CERTIFICATES</span>
                                     </a>
                                     <a data-ui="#div_technology" @click="titulo = 'Technology'">
                                         <i>style</i>
-                                        <span>TECHNOLOGY</span>
+                                        <span class="small-text">TECHNOLOGY</span>
                                     </a>
                                     <a data-ui="#div_proyects" @click="titulo = 'Proyects'">
                                         <i>design_services</i>
-                                        <span>PROYECTS</span>
+                                        <span class="small-text">PROYECTS</span>
                                     </a>
                                     <a data-ui="#div_contact" @click="titulo = 'Contact'">
                                         <i>accessibility_new</i>
-                                        <span>CONTACT</span>
+                                        <span class="small-text">CONTACT</span>
                                     </a>
                                 </nav>
                             </div>
                         </div>
-                        <div id="div_about" class="page padding active">
-                            {{infoPortafolio.descripcion}}
+                        <div id="div_about" class="page padding active large-text" style="text-align: justify;">
+                            <h6 v-html="infoPortafolio.descripcion"></h6>
+                        </div>
+                        <div id="div_certificate" class="page padding active large-text" style="text-align: justify;">
                         </div>
                         <div id="div_technology" class="page padding">
                             <div class="grid">
@@ -228,6 +232,10 @@
                     <a data-ui="#div_about" class="active" @click="showSection('panelMain', 'About');">
                         <i>info</i>
                         <span>About</span>
+                    </a>
+                    <a data-ui="#div_certificate" @click="showSection('panelMain', 'Certificates');">
+                        <i>license</i>
+                        <span>Certificates</span>
                     </a>
                     <a data-ui="#div_technology" @click="showSection('panelMain', 'Technology');">
                         <i>style</i>

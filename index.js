@@ -56,6 +56,7 @@ export default {
         });*/
 
         await this.getInfoPortafolio();
+        document.getElementById("mainDiv").style.display = "block";
     },
     methods: {
         getdate() {
@@ -133,6 +134,7 @@ export default {
                     id: doc.id,
                     ...doc.data()
                 }))[0];
+                this.infoPortafolio.descripcion = this.infoPortafolio.descripcion.replaceAll("\n", "<br>")
             } catch (e) {
                 showError("Error al cargar información del portafolio.");
             }
